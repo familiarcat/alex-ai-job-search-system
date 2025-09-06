@@ -1,0 +1,32 @@
+{
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "handlers": [
+      "console",
+      "file",
+      "syslog"
+    ]
+  },
+  "monitoring": {
+    "health_check_interval": 30,
+    "metrics_collection": true,
+    "alerting": {
+      "enabled": true,
+      "channels": [
+        "email",
+        "slack"
+      ]
+    }
+  },
+  "metrics": {
+    "prometheus": {
+      "enabled": true,
+      "port": 9090
+    },
+    "grafana": {
+      "enabled": true,
+      "port": 3000
+    }
+  }
+}
