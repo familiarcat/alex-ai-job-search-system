@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex AI Superagent System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .btn { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Alex AI Superagent System</h1>
+            <p>Phase 2: Core AI Systems - Operational</p>
+        </div>
+        
+        <div class="section">
+            <h2>🔍 Job Search</h2>
+            <input type="text" id="jobQuery" placeholder="Enter job search query" style="width: 70%; padding: 10px;">
+            <button class="btn" onclick="searchJobs()">Search Jobs</button>
+            <div id="jobResults"></div>
+        </div>
+        
+        <div class="section">
+            <h2>👥 Crew Coordination</h2>
+            <input type="text" id="crewTask" placeholder="Enter task for crew coordination" style="width: 70%; padding: 10px;">
+            <button class="btn" onclick="coordinateCrew()">Coordinate Crew</button>
+            <div id="crewResults"></div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 System Status</h2>
+            <button class="btn" onclick="checkHealth()">Check System Health</button>
+            <div id="healthResults"></div>
+        </div>
+    </div>
+
+    <script>
+        async function searchJobs() {
+            const query = document.getElementById("jobQuery").value;
+            const response = await fetch("/api/v1/jobs/search", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({query: query})
+            });
+            const data = await response.json();
+            document.getElementById("jobResults").innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+        }
+        
+        async function coordinateCrew() {
+            const task = document.getElementById("crewTask").value;
+            const response = await fetch("/api/v1/crew/coordinate", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({task: task})
+            });
+            const data = await response.json();
+            document.getElementById("crewResults").innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+        }
+        
+        async function checkHealth() {
+            const response = await fetch("/health");
+            const data = await response.json();
+            document.getElementById("healthResults").innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+        }
+    </script>
+</body>
+</html>
