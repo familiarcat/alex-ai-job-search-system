@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  alex-ai-app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - postgres
+    
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: alex_ai
+      POSTGRES_USER: alex_ai
+      POSTGRES_PASSWORD: alex_ai_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
